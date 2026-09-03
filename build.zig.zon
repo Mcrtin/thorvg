@@ -10,7 +10,9 @@
         },
     },
     .paths = .{
+        "sources.zig",
         "build.zig",
         "build.zig.zon",
+        "test",
     },
 }
