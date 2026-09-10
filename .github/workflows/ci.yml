@@ -1,0 +1,20 @@
+name: CI tests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Setup Zig
+      uses: mlugg/setup-zig@v2
+
+    - run: sudo apt-get install -y qemu-user
+    
+    - run: zig build ci --summary all
