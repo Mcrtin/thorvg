@@ -1,8 +1,8 @@
 .{
     .name = .thorvg,
-    .version = "0.0.0",
+    .version = "0.1.0",
     .fingerprint = 0x16b0a31836dc1711,
-    .minimum_zig_version = "0.16.0",
+    .minimum_zig_version = "0.17.0",
     .dependencies = .{
         .upstream = .{
             .url = "git+https://github.com/thorvg/thorvg#095be10905f17d4c6a780a118526083cdc31cf4d",

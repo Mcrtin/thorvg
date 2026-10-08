@@ -210,27 +210,29 @@ pub fn buildThor(
     mod.link_libc = true;
 
     if (flags.media_loader and target.result.os.tag.isDarwin()) {
-        if (b.sysroot) |sysroot| if (sysroot.len > 0) {
-            mod.addSystemFrameworkPath(.{
-                .cwd_relative = b.pathJoin(&.{ sysroot, "System/Library/Frameworks" }),
-            });
-        };
+        // if (b.sysroot) |sysroot| if (sysroot.len > 0) {
+        //     mod.addSystemFrameworkPath(.{
+        //         .cwd_relative = b.pathJoin(&.{ sysroot, "System/Library/Frameworks" }),
+        //     });
+        // };
         mod.linkFramework("AVFoundation", .{});
         mod.linkFramework("CoreVideo", .{});
         mod.linkFramework("CoreMedia", .{});
         mod.linkFramework("Foundation", .{});
         mod.linkFramework("CoreFoundation", .{});
+        @panic("unimplemented");
     }
 
     if (target.result.os.tag == .emscripten) {
-        const sysroot = b.sysroot orelse "";
-        if (sysroot.len == 0) @panic(
-            \\wasm32-emscripten needs the emscripten sysroot:
-            \\    zig build -Dtarget=wasm32-emscripten --sysroot <emsdk>/cache/sysroot
-        );
+        @panic("unimplemented");
+        // const sysroot = b.sysroot orelse "";
+        // if (sysroot.len == 0) @panic(
+        //     \\wasm32-emscripten needs the emscripten sysroot:
+        //     \\    zig build -Dtarget=wasm32-emscripten --sysroot <emsdk>/cache/sysroot
+        // );
         // -isystem, not addIncludePath: emscripten's libc has to be searched
         // after libc++'s own headers or <cstddef> rejects the ordering.
-        mod.addSystemIncludePath(.{ .cwd_relative = b.pathJoin(&.{ sysroot, "include" }) });
+        // mod.addSystemIncludePath(.{ .cwd_relative = b.pathJoin(&.{ sysroot, "include" }) });
     }
 
     lib.installHeader(upstream.path("inc/thorvg.h"), "thorvg/thorvg.h");
